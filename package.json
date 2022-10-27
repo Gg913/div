@@ -1,15 +1,12 @@
 {
-  "name": "toxic4",
+  "name": "lofy-selfbot-v4",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "chalk": "^4.1.0",
-    "discord.js": "^11.6.4"
-  }
+  "keywords": [],
+  "author": "Polarlofy",
+  "license": "ISC"
 }
