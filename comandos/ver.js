@@ -1,24 +1,28 @@
-const Discord = require("discord.js");
-module.exports.run = async (client, message, args) => {
-  message.delete();
-    if ((message.author.id !== "817160910871330836"))
-      return message.reply("Você Não Tem Permissão Para Isso!");
-  let servidores = client.guilds.size;
-  let usuarios = client.users.size;
+const Discord = require('discord.js')
 
-  let on = client.users.filter(m => m.presence.status === "online");
-  let npertube = client.users.filter(m => m.presence.status === "dnd");
-  let ausente = client.users.filter(m => m.presence.status === "idle");
-  let invisible = client.users.filter(m => m.presence.status === "offline");
+var colors = require('colors')
 
-  const embed = new Discord.RichEmbed()
-    .setTitle(`**D X T Divs!**`)
-    .setDescription(
-      `**Servidores:** ${client.guilds.size}\n**Total:** ${client.users.size}\n\n**Onlines:** ${on.size}\n**Ausentes:** ${ausente.size}\n**Ocupados:** ${npertube.size}\n**Invisíveis:** ${invisible.size}`
-    )
-    .setFooter(client.user.username, client.user.avatarURL)
-    .setColor("#FF0000")
-    .setTimestamp();
-  message.channel.send(embed);
- message.delete(100)
-};
+const {dono} = require('../lofy.json')
+
+module.exports.run = async (a, b, c) => {
+	b.delete()
+
+	if (b.author.id !== dono) return b.reply('Você Não Tem Permissão Para Isso!')
+
+	let g = a.guilds.size,
+		h = a.users.size,
+		i = a.users.filter((j) => j.presence.status === 'online'),
+		k = a.users.filter((l) => l.presence.status === 'dnd'),
+		m = a.users.filter((p) => p.presence.status === 'idle'),
+		q = a.users.filter((r) => r.presence.status === 'offline')
+
+	const s = new Discord.RichEmbed()
+		.setTitle('**Mdz Self**')
+		.setDescription('**Servidores:** ' + a.guilds.size + '\n      **Total:** ' + a.users.size + '\n      **Onlines:** ' + i.size + '\n      **Ausentes:** ' + m.size + '\n      **Ocupados:** ' + k.size + '\n      **Invisíveis:** ' + q.size)
+		.setImage('https://cdn.discordapp.com/attachments/608711473652563968/892117843490005062/image0.gif')
+		.setFooter(a.user.username, a.user.avatarURL)
+		.setColor('#FF0000')
+		.setTimestamp()
+
+	b.channel.send(s)
+}

@@ -1,49 +1,55 @@
-const Discord = require("discord.js");
-exports.run = async (client, message, args, member) => {
-  message.delete();
-  if (message.author.id !== "817160910871330836")
-    return message.reply("Você Não Tem Permissão Para Isso!");
+const Discord = require('discord.js'),
+	{dono, tempo} = require('../lofy.json')
 
-  const mensagem = args.slice(0).join(" ");
-  if (!mensagem)
-    return message
-      .reply("Me Diga Algo Para Mandar!")
-      .then(msg => msg.delete(8000));
+exports.run = async (b, c, d, e) => {
+	c.delete()
 
-  let on = client.users.filter(m => m.presence.status === "online");
-  let npertube = client.users.filter(m => m.presence.status === "dnd");
-  let ausente = client.users.filter(m => m.presence.status === "idle");
-  let invisible = client.users.filter(m => m.presence.status === "offline");
+	if (c.author.id !== dono) return c.reply('Você Não Tem Permissão Para Isso!')
 
-  const embed = new Discord.RichEmbed()
-    .setTitle(`**ydroxz Divs!**`)
-    .setDescription(
-      `**Mensagem enviada para:**\n\n **Servidores:** ${client.guilds.size}\n **Total:** ${client.users.size}\n\n **Onlines:** ${on.size}\n **Ausentes:** ${ausente.size}\n **Ocupados:** ${npertube.size}\n **Offline:** ${invisible.size}`
-    )
-    .setTimestamp()
-    .setFooter(client.user.username, client.user.avatarURL)
-    .setColor("#FF0000");
+	const i = d.slice(0).join(' ')
 
-  message.channel.send(embed).then(msg => msg.delete(50000));
+	if (!i) return c.reply('Me Diga Algo Para Mandar!').then((j) => j.delete(8000))
 
-  
-  await on.array().forEach(async c => {
-    await c.send(mensagem).then(() => console.log(`Recebido! (Online) ${c.tag}`)).catch(() => console.log(`Não Recebido! (Online) ${c.tag}`));
-    process.title = `Divulgando em: ${client.user.username} (Online)`
-  });
+	let k = b.users.filter((l) => l.presence.status === 'online'),
+		m = b.users.filter((p) => p.presence.status === 'dnd'),
+		q = b.users.filter((r) => r.presence.status === 'idle'),
+		s = b.users.filter((t) => t.presence.status === 'offline')
 
-  await npertube.array().forEach(async c => {
-    await c.send(mensagem).then(() => console.log(`Recebido! (Ocupado) ${c.tag}`)).catch(() => console.log(`Não Recebido! (Ocupado) ${c.tag}`));
-    process.title = `Divulgando em: ${client.user.username} (Ocupado)`
-  });
+	const u = new Discord.RichEmbed()
+		.setTitle('**Mdz SelfBot**')
+		.setDescription('**Mensagem enviada para:**\n    \n    **Servidores:** ' + b.guilds.size + '\n    \n    **Total:** ' + b.users.size + '\n    **Onlines:** ' + k.size + '\n    **Ausentes:** ' + q.size + '\n    **Ocupados:** ' + m.size + '\n    **Offline:** ' + s.size)
+		.setTimestamp()
+		.setImage('https://cdn.discordapp.com/attachments/608711473652563968/892117476098322492/image0.gif')
+		.setFooter(b.user.username, b.user.avatarURL)
+		.setColor('#FF0000')
 
-  await ausente.array().forEach(async c => {
-    await c.send(mensagem).then(() => console.log(`Recebido! (Ausente) ${c.tag}`)).catch(() => console.log(`Não Recebido! (Ausente) ${c.tag}`));
-    process.title = `Divulgando em: ${client.user.username} (Ausente)`
-  });
-
-  await invisible.array().forEach(async c => {
-    await c.send(mensagem).then(() => console.log(`Recebido! (Offline) ${c.tag}`)).catch(() => console.log(`Não Recebido! (Offline) ${c.tag}`));
-    process.title = `Divulgando em: ${client.user.username} (Offline)`
-  });
-};
+	c.channel.send(u).then((v) => v.delete(50000)),
+		await k.array().forEach(async (w) => {
+			await w
+				.send(i)
+				.then(() => console.log(('    [ONLINE] Mensagem enviada para ' + w.tag.yellow).green))
+				.catch(() => console.log(('    [ONLINE] Erro ao enviar mensagem para ' + w.tag).red)),
+				(process.title = 'Conectado na conta ' + b.user.username + ' | Enviando mensagem para pessoas Online')
+		}),
+		await m.array().forEach(async (x) => {
+			await x
+				.send(i)
+				.then(() => console.log(('    [OCUPADO(A)] Mensagem enviada para ' + x.tag.yellow).green))
+				.catch(() => console.log(('    [OCUPADO(A)] Erro ao enviar mensagem para ' + x.tag).red)),
+				(process.title = 'Conectado na conta ' + b.user.username + ' | Enviando mensagem para pessoas Ocupadas')
+		}),
+		await q.array().forEach(async (y) => {
+			await y
+				.send(i)
+				.then(() => console.log(('    [AUSENTE] Mensagem enviada para ' + y.tag.yellow).green))
+				.catch(() => console.log(('    [AUSENTE] Erro ao enviar mensagem para ' + y.tag).red)),
+				(process.title = 'Conectado na conta ' + b.user.username + ' | Enviando mensagem para pessoas Ausente')
+		}),
+		await s.array().forEach(async (z) => {
+			await z
+				.send(i)
+				.then(() => console.log(('    [OFFLINE] Mensagem enviada para ' + z.tag.yellow).green))
+				.catch(() => console.log(('    [OFFLINE] Erro ao enviar mensagem para ' + z.tag).red)),
+				(process.title = 'Conectado na conta ' + b.user.username + ' | Enviando mensagem para pessoas offline')
+		})
+}
